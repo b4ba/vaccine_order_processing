@@ -1,0 +1,25 @@
+#!/bin/bash
+echo
+echo Compiling Program...
+g++ -std=c++11 -I./ -c Customer.cpp -o Customer.o
+g++ -std=c++11 -I./ -c Order.cpp -o Order.o
+g++ -std=c++11 -I./ -c Invoice.cpp -o Invoice.o
+g++ -std=c++11 -I./ -c ordering.cpp -o ordering.o
+
+# Only link if compilation returns with no errors
+if [[ $? -eq 0 ]]
+then
+    echo Program compiled ok!
+    echo
+    echo Linking...
+    g++ Customer.o Order.o Invoice.o ordering.o -o ordering
+
+    if [[ $? -eq 0 ]]
+    then
+        echo Program compiled and linked ok!
+    else
+        echo Link failed!!!
+    fi
+else
+    echo Compiled failed!!!
+fi
